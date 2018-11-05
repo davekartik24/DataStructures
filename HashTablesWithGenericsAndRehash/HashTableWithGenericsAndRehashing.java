@@ -174,10 +174,17 @@ public class HashTableWithGenericsAndRehashing<K, V> {
 
 	public static void main(String[] args) {
 
-		HashTableWithGenericsAndRehashing testHashTable = new HashTableWithGenericsAndRehashing();
+		HashTableWithGenericsAndRehashing<Integer, String> testHashTable = new HashTableWithGenericsAndRehashing<>();
 
 		testHashTable.put(1, "My");
 		testHashTable.put(2, "Name");
+
+
+		System.out.println(testHashTable);
+
+		System.out.println(testHashTable.getValue(1));
+
+		testHashTable.remove(1);
 
 
 		System.out.println(testHashTable);
