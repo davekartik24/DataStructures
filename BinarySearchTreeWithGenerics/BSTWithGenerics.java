@@ -157,9 +157,61 @@ public class BSTWithGenerics<T extends Comparable> {
 		return parentIndex;
 	}
 
-	public Node<T> delete(Node<T> inputNode) {
+	public void transplant(Node<T> toBeRemoved, Node<T> toBeAdded) {
 
+		if(toBeRemoved == root) {
+
+			root = toBeAdded;
+		} else if(toBeRemoved.parent.left == toBeRemoved) {
+
+			toBeRemoved.parent.left = toBeAdded;
+		} else {
+
+			toBeRemoved.parent.right = toBeAdded;
+		}
+
+		if(toBeAdded != null) {
+
+			toBeAdded.parent = toBeRemoved.parent;
+		}
+	}
+
+	public void delete(Node<T> inputNode) {
+
+		if(inputNode.left == null) {
+
+			transplant(inputNode, inputNode.right);
+		} else if(inputNode.right == null) {
+
+			transplant(inputNode, inputNode.left);
+		} else {
+
+			Node<T> minimumNode = minimum(inputNode.right);
+
+			if(minimumNode.parent != inputNode) {
+
+				transplant(minimumNode, minimumNode.right);
+				minimumNode.right = inputNode.right;
+				minimumNode.right.parent = minimumNode;
+			}
+
+			transplant(inputNode, minimumNode);
+			minimumNode.left = inputNode.left;
+			minimumNode.left.parent = minimumNode;
+			
+		}
 		
+	}
+
+	public void delete(T value) {
+
+		Node<T> focusedNode = search(value);
+
+		if(focusedNode != null) {
+
+			delete(focusedNode);
+		}
+
 	}
 
 	public static void main(String[] args) {
@@ -174,10 +226,10 @@ public class BSTWithGenerics<T extends Comparable> {
 		testInstance.insert(13);
 		testInstance.insert(inputNodeTwo);
 
+		testInstance.delete(8);
+
 
 		testInstance.inOrderTraversal(testInstance.root);
-
-		System.out.println("check : " + testInstance.predecessor(inputNodeTwo));
 
 	}
 }
