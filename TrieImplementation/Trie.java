@@ -1,7 +1,7 @@
 // Trie is also called as Radix or Prefix tree
 // It is a search Tree and that is why the major operations are Insert and search
-// The run time to find the presence of the strinf is O(L)
-// where L is the lenght of the input string or word
+// The run time to find the presence of the string is O(L)
+// where L is the length of the input string or word
 
 // Better then HashMap when prefix check is important 
 // as no need to deal with the collision and chaining
